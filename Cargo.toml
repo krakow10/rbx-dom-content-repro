@@ -1,0 +1,8 @@
+[package]
+name = "rbx-dom-content-repro"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rbx_binary = "0.7.7"
+rbx_dom_weak = "2.9.0"
