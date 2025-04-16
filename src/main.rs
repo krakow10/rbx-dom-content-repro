@@ -1,14 +1,20 @@
-use rbx_dom_weak::Instance;
+use rbx_dom_weak::{ustr,Instance};
 use std::collections::HashSet;
 
 fn get_content_url(variant:&rbx_dom_weak::types::Variant)->Option<&str>{
 	match variant{
-		rbx_dom_weak::types::Variant::Content(content_id)=>Some(content_id.as_ref()),
+		rbx_dom_weak::types::Variant::Content(content)=>{
+			match content.value(){
+				rbx_dom_weak::types::ContentType::Uri(uri)=>Some(uri.as_str()),
+				_=>None,
+			}
+		},
+		rbx_dom_weak::types::Variant::ContentId(content_id)=>Some(content_id.as_str()),
 		_=>None,
 	}
 }
 fn accumulate_content_id<'a>(content_list:&mut HashSet<&'a str>,object:&'a Instance,property:&str){
-	let Some(content)=object.properties.get(property).and_then(get_content_url) else{
+	let Some(content)=object.properties.get(&ustr(property)).and_then(get_content_url) else{
 		println!("property={} does not exist for class={}",property,object.class.as_str());
 		return;
 	};

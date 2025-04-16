@@ -4,5 +4,5 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-rbx_binary = "0.7.7"
-rbx_dom_weak = "2.9.0"
+rbx_binary = "1.0.0"
+rbx_dom_weak = "3.0.0"
